@@ -15,12 +15,12 @@ module.exports = {
 
     			res.status(200).send({ token: token });
 			}else{
-				res.status(401).send({
+				res.status(400).send({
 		   			message: "Password not correct."
 		   		})
 			}
 		}).catch(error =>{
-			res.status(401).send({
+			res.status(400).send({
 		   		message: "Username not found."
 		   	})
 		})
@@ -32,7 +32,7 @@ module.exports = {
 
 			try{
 				await users.create(body).then(user => {
-				    res.status(200).send({ 
+				    res.status(201).send({ 
 				    	id: user._id, message: "User registered." 
 				    })
 				}).catch(error => {

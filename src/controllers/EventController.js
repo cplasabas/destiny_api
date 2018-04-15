@@ -27,7 +27,7 @@ module.exports = {
 	},
 	create (req,res){
 		events.create(req.body).then(event => {
-		    res.status(200).send({ 
+		    res.status(201).send({ 
 		    	id: event._id, message: "Event Created." 
 		    })
 		}).catch(error => {
@@ -59,7 +59,7 @@ module.exports = {
 	        	id:id
 	        }
 	     }).then(() => {
-	        res.status(201).send({
+	        res.status(200).send({
 		  	 		message: "Successfully deleted."
 		  	})
 	     }).catch(error =>{

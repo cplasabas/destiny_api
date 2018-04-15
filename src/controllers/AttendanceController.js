@@ -30,7 +30,7 @@ module.exports = {
 	},
 	create (req,res){
 		attendance.create(body).then(attendance => {
-		    res.status(200).send({ 
+		    res.status(201).send({ 
 		    	id: attendance._id, message: "Successfully attended." 
 		    })
 		}).catch(error => {

@@ -50,7 +50,7 @@ module.exports = {
 	        	id:id
 	        }
 	     }).then(() => {
-	        res.status(201).send({
+	        res.status(200).send({
 		  	 		message: "Successfully deleted."
 		  	})
 	     }).catch(error =>{
