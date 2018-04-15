@@ -11,12 +11,24 @@ const sequelize = new Sequelize(
 	config.db.options
 )
 
-fs.readdirSync(__dirname).filter((file) => 
-		file != "index.js"
-	).forEach((file) => {
-		const model = sequelize.import(path.join(__dirname,file))
-		db[model.name] = model
-	})
+db.users = require('../models/users.js')(sequelize, Sequelize);
+db.user_types = require('../models/user_types.js')(sequelize, Sequelize);
+db.user_groups = require('../models/user_groups.js')(sequelize, Sequelize); 
+db.events = require('../models/events.js')(sequelize, Sequelize); 
+db.event_types = require('../models/event_types.js')(sequelize, Sequelize); 
+db.user_events = require('../models/user_events.js')(sequelize, Sequelize); 
+db.attendance = require('../models/attendance.js')(sequelize, Sequelize);  
+
+db.users.belongsTo(db.user_types,{foreignKey: 'user_type_id'})
+db.users.belongsTo(db.user_groups, {foreignKey: 'user_group_id'})
+db.events.belongsTo(db.event_types, {foreignKey: 'event_type_id'})
+db.events.belongsTo(db.users,{foreignKey: 'user_id'})
+db.user_events.belongsTo(db.users,{foreignKey: 'user_id'})
+db.user_events.belongsTo(db.events,{foreignKey: 'event_id'})
+db.attendance.belongsTo(db.users,{foreignKey: 'user_id'})
+db.attendance.belongsTo(db.events,{foreignKey: 'event_id'})
+
+db.users.hasMany(db.attendance)
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

@@ -7,8 +7,14 @@ module.exports = {
 			last_name: joi.string(),
 			email: joi.string().email(),
 			username: joi.string(),
-			password: joi.string()
-		}
+			password: joi.string(),
+			contact: joi.string().allow(''),
+			address: joi.string().allow(''),
+			level: joi.number().integer(),
+			parent: joi.number().integer(),
+			user_type_id: joi.number().integer(),
+			user_group_id: joi.number().integer()
+		}	
 
 		const {error,value} = joi.validate(req.body,schema)
 
