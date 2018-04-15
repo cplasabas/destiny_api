@@ -1,9 +1,8 @@
-const {events} = require('../models')
-const {attendance} = require('../models')
+const {user_events} = require('../models')
 
 module.exports = {
 	index (req,res){
-		events.all().then(event => {
+		user_events.all().then(event => {
   			res.status(200).send({
 		   		events: event
 			})
@@ -11,7 +10,7 @@ module.exports = {
 	},
 	show (req,res){
 		const id = req.params.id
-		events.findAll({
+		user_events.findAll({
 	        where: {
 	        	id:id
 	        }
@@ -26,19 +25,19 @@ module.exports = {
 	     })
 	},
 	create (req,res){
-		events.create(req.body).then(event => {
+		user_events.create(body).then(event => {
 		    res.status(200).send({ 
-		    	id: event._id, message: "Event Created." 
+		    	id: event._id, message: "User added to the event." 
 		    })
 		}).catch(error => {
 		   res.status(400).send({
-		   		message: "Event already exists."
+		   		message: "User already is added to the event."
 		   })
 		})
 	},
 	update (req,res){
 		const id = req.params.id
-		events.update(req.body,{
+		user_events.update(req.body,{
 			where:{
 				id:id
 			}
@@ -54,7 +53,7 @@ module.exports = {
 	},
 	delete (req,res){
 		const id = req.params.id
-		events.destroy({
+		user_events.destroy({
 	        where: {
 	        	id:id
 	        }
@@ -67,22 +66,5 @@ module.exports = {
 		  	 		message: "Failed to delete."
 		  	})
 	     })
-	},
-	showEventAttendance(req,res){
-		const id = req.params.id
-		attendance.findAll({
-			attributes: ['id','user_id', 'event_id','createdAt','updatedAt'],
-	        where: {
-	           event_id: id
-	        }
-	    }).then(attendance => {
-	        if (attendance && attendance > 0) {
-	             res.status(200).send({
-		  	 		data: attendance
-		  		})
-	        }else{
-	        	res.status(204).send()
-	        }
-	    })
 	}
 }

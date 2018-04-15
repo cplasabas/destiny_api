@@ -19,12 +19,24 @@ module.exports = {
 	           id: id
 	        }
 	     }).then(function(attendance) {
-	        if (!attendance) {
-	            res.status(204).send()
+	        if (attendance && attendance.length > 0) {
+	             res.status(200).send({
+		  	 		data: attendance
+		  		})
+	        }else{
+	        	res.status(204).send()
 	        }
-	        res.status(200).send({
-		  	 data: attendance
-		  	})
 	     })
+	},
+	create (req,res){
+		attendance.create(body).then(attendance => {
+		    res.status(200).send({ 
+		    	id: attendance._id, message: "Successfully attended." 
+		    })
+		}).catch(error => {
+		   res.status(400).send({
+		   		message: "User already attended."
+		   })
+		})
 	}
 }

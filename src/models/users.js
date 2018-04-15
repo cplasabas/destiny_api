@@ -20,5 +20,13 @@ module.exports = (sequelize, DataTypes) =>
 			allowNull: true
 		},
 		level: DataTypes.INTEGER,
-		parent: DataTypes.INTEGER
+		parent: DataTypes.INTEGER,
+		createdAt:{
+			type: DataTypes.DATE,
+			defaultValue:DataTypes.NOW
+		},
+		updatedAt:{
+			type: DataTypes.DATE,
+			defaultValue:DataTypes.NOW
+		}
 	})

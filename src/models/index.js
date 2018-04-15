@@ -28,8 +28,6 @@ db.user_events.belongsTo(db.events,{foreignKey: 'event_id'})
 db.attendance.belongsTo(db.users,{foreignKey: 'user_id'})
 db.attendance.belongsTo(db.events,{foreignKey: 'event_id'})
 
-db.users.hasMany(db.attendance)
-
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
