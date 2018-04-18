@@ -19,6 +19,7 @@ module.exports = (app) => {
 	app.get('/attendance',AttendanceController.index)
 	app.get('/attendance/:id',AttendanceController.show)
 	app.post('/attendance',AttendanceControllerPolicy.create,AttendanceController.create)
+	app.get('/attendance/:id/children', AttendanceController.showChildrenAttendance)
 
 	app.get('/user',UserController.index)
 	app.get('/user/:id',UserController.show)

@@ -66,11 +66,29 @@ module.exports = {
 		users.findAll({
 	        where: {
 	        	parent:id
-	        }
+			},
+			include:[{
+				association:'children',
+				include: [{
+					association:'children',
+					include: [{
+						association: 'children', 
+						include: [{ 
+							association: 'children',
+							include:[{
+								association: 'children',
+								include:[{
+									association: 'children',
+								}]
+							}]
+						}]
+					}]
+				}]
+			}]
 	     }).then(user => {
 	        if (user && user.length > 0) {
 	            res.status(200).send({
-		  	 		data: user
+					data: user
 		  		})
 	        }else{
 	        	res.status(204).send()

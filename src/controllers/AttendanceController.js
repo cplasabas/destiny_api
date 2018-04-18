@@ -28,6 +28,26 @@ module.exports = {
 	        }
 	     })
 	},
+	showChildrenAttendance(req,res){
+		const id = req.params.id
+		users.findAll({
+			where: {
+				parent: id
+			},
+			include: [
+				{association: 'attendance'}
+			],
+			attributes:[]
+		}).then(user => {
+			if (user && user.length > 0) {
+				res.status(200).send({
+					data: user
+				})
+			} else {
+				res.status(204).send()
+			}
+		})
+	},
 	create (req,res){
 		attendance.create(body).then(attendance => {
 		    res.status(201).send({ 

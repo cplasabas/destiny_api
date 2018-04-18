@@ -19,13 +19,14 @@ db.event_types = require('../models/event_types.js')(sequelize, Sequelize);
 db.user_events = require('../models/user_events.js')(sequelize, Sequelize); 
 db.attendance = require('../models/attendance.js')(sequelize, Sequelize);  
 
+db.users.hasMany(db.users, { foreignKey: 'parent', as: 'children' })
 db.users.belongsTo(db.user_types,{foreignKey: 'user_type_id'})
 db.users.belongsTo(db.user_groups, {foreignKey: 'user_group_id'})
+db.users.hasMany(db.attendance, { foreignKey: 'user_id',as:'attendance'})
 db.events.belongsTo(db.event_types, {foreignKey: 'event_type_id'})
 db.events.belongsTo(db.users,{foreignKey: 'user_id'})
 db.user_events.belongsTo(db.users,{foreignKey: 'user_id'})
 db.user_events.belongsTo(db.events,{foreignKey: 'event_id'})
-db.attendance.belongsTo(db.users,{foreignKey: 'user_id'})
 db.attendance.belongsTo(db.events,{foreignKey: 'event_id'})
 
 db.sequelize = sequelize
